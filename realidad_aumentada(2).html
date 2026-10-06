@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Realidad Aumentada | Proyecto</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Arial,Helvetica,sans-serif;
+      background:#07111f;
+      color:#eef7ff;
+      line-height:1.6;
+    }
+    header{
+      min-height:92vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:50px 20px;
+      background:
+        radial-gradient(circle at 20% 20%, #164e63 0, transparent 35%),
+        radial-gradient(circle at 80% 30%, #312e81 0, transparent 35%),
+        linear-gradient(135deg,#020617,#0f172a 60%,#111827);
+      position:relative;
+      overflow:hidden;
+    }
+    header:before,header:after{
+      content:"";
+      position:absolute;
+      border:2px solid rgba(56,189,248,.2);
+      border-radius:50%;
+      width:360px;height:360px;
+      animation:float 7s ease-in-out infinite;
+    }
+    header:before{left:-150px;bottom:-180px}
+    header:after{right:-140px;top:-160px;animation-delay:1.5s}
+    .hero{max-width:900px;position:relative;z-index:1}
+    .tag{
+      display:inline-block;
+      padding:8px 16px;
+      border:1px solid rgba(125,211,252,.5);
+      border-radius:999px;
+      color:#bae6fd;
+      background:rgba(14,165,233,.1);
+      margin-bottom:20px;
+    }
+    h1{
+      font-size:clamp(3rem,8vw,6.5rem);
+      line-height:1;
+      margin-bottom:22px;
+      background:linear-gradient(90deg,#67e8f9,#60a5fa,#c084fc);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+    .hero p{font-size:1.2rem;color:#cbd5e1;max-width:700px;margin:auto auto 30px}
+    .btn{
+      display:inline-block;
+      padding:13px 24px;
+      border-radius:12px;
+      text-decoration:none;
+      color:white;
+      background:linear-gradient(90deg,#0891b2,#4f46e5);
+      font-weight:bold;
+      box-shadow:0 8px 25px rgba(37,99,235,.25);
+      transition:.25s;
+    }
+    .btn:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(37,99,235,.4)}
+    nav{
+      position:sticky;top:0;z-index:10;
+      background:rgba(2,6,23,.9);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(148,163,184,.15);
+      padding:12px 20px;
+      text-align:center;
+    }
+    nav a{color:#cbd5e1;text-decoration:none;margin:0 13px;font-weight:bold}
+    nav a:hover{color:#67e8f9}
+    section{max-width:1100px;margin:auto;padding:75px 20px}
+    .title{text-align:center;font-size:2.2rem;margin-bottom:12px}
+    .subtitle{text-align:center;color:#94a3b8;margin-bottom:40px}
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:20px;
+    }
+    .card{
+      background:linear-gradient(145deg,rgba(15,23,42,.95),rgba(15,23,42,.65));
+      border:1px solid rgba(125,211,252,.15);
+      border-radius:18px;
+      padding:25px;
+      transition:.25s;
+    }
+    .card:hover{transform:translateY(-7px);border-color:rgba(103,232,249,.5)}
+    .icon{font-size:2.5rem;margin-bottom:12px}
+    .card h3{margin-bottom:8px;color:#7dd3fc}
+    .card p{color:#cbd5e1}
+    .about{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:30px;
+      align-items:center;
+    }
+    .visual{
+      min-height:300px;
+      border-radius:25px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:7rem;
+      background:
+        linear-gradient(rgba(14,165,233,.08),rgba(99,102,241,.15)),
+        repeating-linear-gradient(0deg,transparent 0 24px,rgba(125,211,252,.08) 25px),
+        repeating-linear-gradient(90deg,transparent 0 24px,rgba(125,211,252,.08) 25px);
+      border:1px solid rgba(125,211,252,.25);
+      box-shadow:inset 0 0 60px rgba(14,165,233,.08);
+    }
+    .steps{counter-reset:step}
+    .step{position:relative;padding-left:65px;margin-bottom:25px}
+    .step:before{
+      counter-increment:step;
+      content:counter(step);
+      position:absolute;left:0;top:0;
+      width:44px;height:44px;border-radius:50%;
+      display:grid;place-items:center;
+      background:#2563eb;font-weight:bold;font-size:1.2rem;
+    }
+    .highlight{
+      text-align:center;
+      padding:45px 25px;
+      border-radius:25px;
+      background:linear-gradient(135deg,#0e7490,#3730a3);
+    }
+    .highlight h2{font-size:2rem;margin-bottom:12px}
+    footer{text-align:center;padding:30px 20px;color:#94a3b8;border-top:1px solid rgba(148,163,184,.15)}
+    @keyframes float{50%{transform:translateY(-25px) rotate(8deg)}}
+    @media(max-width:700px){
+      nav a{display:inline-block;margin:5px 7px;font-size:.9rem}
+      .about{grid-template-columns:1fr}
+      section{padding:55px 18px}
+    }
+  </style>
+</head>
+<body>
+
+<header id="inicio">
+  <div class="hero">
+    <span class="tag">🚀 Proyecto Educativo</span>
+    <h1>REALIDAD<br>AUMENTADA</h1>
+    <p>Una tecnología que combina el mundo real con elementos digitales para crear experiencias interactivas, educativas e innovadoras.</p>
+    <a class="btn" href="#que-es">Descubrir más ↓</a>
+  </div>
+</header>
+
+<nav>
+  <a href="#inicio">Inicio</a>
+  <a href="#que-es">¿Qué es?</a>
+  <a href="#usos">Usos</a>
+  <a href="#funciona">Cómo funciona</a>
+  <a href="#electronica">Electrónica</a>
+</nav>
+
+<section id="que-es">
+  <h2 class="title">¿Qué es la Realidad Aumentada?</h2>
+  <p class="subtitle">Tecnología para ampliar nuestra percepción del entorno.</p>
+  <div class="about">
+    <div>
+      <p>La <strong>Realidad Aumentada (RA)</strong> permite visualizar información digital sobre el mundo real mediante dispositivos como celulares, tablets, cámaras y otros sistemas electrónicos.</p>
+      <br>
+      <p>Por ejemplo, una cámara puede reconocer una imagen y mostrar sobre ella un modelo 3D, una animación, un texto o un video interactivo.</p>
+    </div>
+    <div class="visual">🥽✨</div>
+  </div>
+</section>
+
+<section id="usos">
+  <h2 class="title">Aplicaciones</h2>
+  <p class="subtitle">La RA puede utilizarse en diferentes áreas.</p>
+  <div class="grid">
+    <article class="card"><div class="icon">🎓</div><h3>Educación</h3><p>Permite aprender mediante modelos, animaciones y contenidos interactivos.</p></article>
+    <article class="card"><div class="icon">🎮</div><h3>Entretenimiento</h3><p>Combina elementos virtuales con espacios reales para crear experiencias inmersivas.</p></article>
+    <article class="card"><div class="icon">🏭</div><h3>Industria</h3><p>Puede apoyar procesos de capacitación, mantenimiento y visualización de información.</p></article>
+    <article class="card"><div class="icon">🩺</div><h3>Salud</h3><p>Puede utilizarse para visualizar información y apoyar procesos de formación.</p></article>
+  </div>
+</section>
+
+<section id="funciona">
+  <h2 class="title">¿Cómo funciona?</h2>
+  <p class="subtitle">Un proceso que combina sensores, software y contenido digital.</p>
+  <div class="steps">
+    <div class="step"><h3>Captura del entorno</h3><p>La cámara del dispositivo observa el espacio o una imagen de referencia.</p></div>
+    <div class="step"><h3>Reconocimiento</h3><p>El software identifica una imagen, superficie u objeto que sirve como referencia.</p></div>
+    <div class="step"><h3>Procesamiento</h3><p>El sistema calcula dónde y cómo colocar el contenido digital.</p></div>
+    <div class="step"><h3>Visualización</h3><p>El usuario observa imágenes, modelos, textos o videos integrados al entorno real.</p></div>
+  </div>
+</section>
+
+<section id="electronica">
+  <h2 class="title">Realidad Aumentada + Electrónica</h2>
+  <p class="subtitle">Una combinación de tecnología, programación y creatividad.</p>
+  <div class="grid">
+    <article class="card"><div class="icon">🔌</div><h3>Dispositivos</h3><p>La electrónica permite construir y utilizar sistemas con sensores, cámaras, microcontroladores y otros componentes.</p></article>
+    <article class="card"><div class="icon">💻</div><h3>Programación</h3><p>El software procesa la información y controla la interacción entre el usuario y los contenidos digitales.</p></article>
+    <article class="card"><div class="icon">📡</div><h3>Interacción</h3><p>Los sensores y sistemas electrónicos pueden aportar datos para crear experiencias más interactivas.</p></article>
+  </div>
+</section>
+
+<section>
+  <div class="highlight">
+    <h2>💡 Nuestro proyecto</h2>
+    <p>Buscamos utilizar la Realidad Aumentada como una herramienta educativa para crear experiencias interactivas y atractivas para niños y niñas.</p>
+  </div>
+</section>
+
+<footer>
+  <p>Proyecto de Realidad Aumentada · Especialidad de Electrónica</p>
+  <p>© 2026 · Página creada para fines educativos</p>
+</footer>
+
+</body>
+</html>
